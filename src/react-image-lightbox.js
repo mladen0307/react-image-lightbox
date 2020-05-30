@@ -545,7 +545,10 @@ class ReactImageLightbox extends Component {
    * Handle user keyboard actions
    */
   handleKeyInput(event) {
-    event.stopPropagation();
+   // Gives the opportunity to interecept the key
+   this.props.onKeyEvent(event);
+
+   event.stopPropagation();
 
     // Ignore key input during animations
     if (this.isAnimating()) {
@@ -1657,6 +1660,10 @@ ReactImageLightbox.propTypes = {
   // Should change the parent state such that the lightbox is not rendered
   onCloseRequest: PropTypes.func.isRequired,
 
+  // Custom handler for key events
+  // Called every time a key is pressed in the component, in order to allow extra custom behaviours
+  onKeyEvent: PropTypes.func,
+
   // Move to previous image event
   // Should change the parent state such that props.prevSrc becomes props.mainSrc,
   //  props.mainSrc becomes props.nextSrc, etc.
@@ -1783,6 +1790,7 @@ ReactImageLightbox.defaultProps = {
   onAfterOpen: () => {},
   onImageLoadError: () => {},
   onImageLoad: () => {},
+  onKeyEvent: () => {},
   onMoveNextRequest: () => {},
   onMovePrevRequest: () => {},
   prevLabel: 'Previous image',
