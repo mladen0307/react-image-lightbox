@@ -114,6 +114,8 @@
   bottom: 0;
   max-height: 150px;
   overflow: auto;
+  align-items: center;
+  justify-content: center;
 }
 
 .ril__captionContent {
